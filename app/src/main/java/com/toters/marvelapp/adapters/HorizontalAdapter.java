@@ -54,7 +54,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
         Characters characters = charactersList.get(position);
 
         holder.title.setText(characters.getTitle());
-        holder.rate.setText(String.valueOf((float) (Math.random() * 5)).substring(0,3));
+        holder.rate.setText(characters.getRate());
 
         Glide.with(mainFragment.requireActivity())
                 .load(characters.getPicPath())
@@ -63,9 +63,9 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.image);
 
-        holder.image.setTransitionName("trans"+position);
+        holder.image.setTransitionName("trans" + position);
 
-        holder.mainLayout.setOnClickListener(v -> mainFragment.openDetail(characters,holder.image));
+        holder.mainLayout.setOnClickListener(v -> mainFragment.openDetail(characters, holder.image));
     }
 
     @Override

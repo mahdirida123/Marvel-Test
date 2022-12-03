@@ -21,6 +21,7 @@ import org.json.JSONException;
 
 public class LauncherActivity extends AppCompatActivity implements SendRequest.OnRequestComplete {
 
+    private static final String TAG = "LauncherActivity";
     private ActivityLauncherBinding binding;
     private boolean canGo = true;
     private int countTime=0;
@@ -58,14 +59,11 @@ public class LauncherActivity extends AppCompatActivity implements SendRequest.O
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-//                        binding.lottie.playAnimation();
-//                        binding.lottie.animate().alpha(0.8f).setDuration(800).start();
-                        binding.image2.setVisibility(View.VISIBLE);
-                        binding.image2.animate().translationY(-20).setDuration(2000).start();
-                        blink();
+                        binding.lottie.playAnimation();
+                        binding.lottie.animate().alpha(0.8f).setDuration(800).start();
                         if (canGo) {
                             canGo = false;
-                            new Handler().postDelayed(LauncherActivity.this::getCharacters, 500);
+                            new Handler().postDelayed(LauncherActivity.this::getCharacters, 1000);
                         }
                     }
 
@@ -91,46 +89,15 @@ public class LauncherActivity extends AppCompatActivity implements SendRequest.O
 
             }
         }).start();
-
-
-//        binding.image2.animate().alpha(1).setStartDelay(1000).setDuration(500).start();
-//        binding.image2.animate().alpha(0).setStartDelay(1500).setDuration(500).start();
-
-//        binding.lottie.animate().scaleY(1).scaleX(1).alpha(1f).setDuration(2000).start();
-//        new Handler().postDelayed(this::gotoMainActivity, 2000);
-    }
-
-    private void blink() {
-        final Handler handler = new Handler();
-        new Thread(() -> {
-            int timeToBlink = 100;    //in milissegunds
-            try {
-                countTime++;
-                Thread.sleep(timeToBlink);
-            } catch (Exception e) {
-            }
-            handler.post(() -> {
-                if (binding.image2.getVisibility() == View.VISIBLE) {
-                    binding.image2.setVisibility(View.INVISIBLE);
-                } else {
-                    binding.image2.setVisibility(View.VISIBLE);
-                }
-                if(countTime<3){
-                    blink();
-                }else{
-                    binding.image2.setVisibility(View.VISIBLE);
-                }
-            });
-        }).start();
     }
 
     private void getCharacters() {
-        SendRequest sendRequest = new SendRequest(this);
-        sendRequest.execute("characters");
+        SendRequest sendRequest = new SendRequest(this,0);
+        sendRequest.execute("characters?");
     }
 
     @Override
-    public void onRequestComplete(int status, String response) {
+    public void onRequestComplete(int status, String response,int requestCode) {
         if (status == 1) {
             try {
                 Helpers.parseCharacters(response);

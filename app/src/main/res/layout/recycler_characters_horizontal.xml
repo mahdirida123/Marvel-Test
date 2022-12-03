@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recycler_horizontal_mainLayout"
-    android:layout_width="150dp"
+    android:layout_width="match_parent"
     android:layout_height="230dp"
     android:layout_margin="10dp"
+    android:layout_gravity="center_horizontal"
     android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="10dp"
     app:cardElevation="3dp">

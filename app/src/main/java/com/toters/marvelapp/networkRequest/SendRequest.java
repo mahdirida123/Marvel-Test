@@ -19,13 +19,15 @@ public class SendRequest extends AsyncTask<String, String, String> {
     private final OnRequestComplete listener;
     HttpURLConnection conn;
     private String prefixUrl, parameters;
+    private int requestCode;
 
     public interface OnRequestComplete {
-        void onRequestComplete(int status, String response);
+        void onRequestComplete(int status, String response,int requestCode);
     }
 
-    public SendRequest(OnRequestComplete listener) {
+    public SendRequest(OnRequestComplete listener,int requestCode) {
         this.listener = listener;
+        this.requestCode=requestCode;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class SendRequest extends AsyncTask<String, String, String> {
 
             parameters = Helpers.getParameters();
 
-            URL url = new URL(Constant.URL + prefixUrl + "?" + parameters);
+            URL url = new URL(Constant.URL + prefixUrl + parameters);
             Log.d(TAG, "doInBackground: url " + url);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/json");
@@ -75,10 +77,10 @@ public class SendRequest extends AsyncTask<String, String, String> {
         Log.d(TAG, "onPostExecute: result " + result);
 
         if (result.equalsIgnoreCase("connection")) {
-            listener.onRequestComplete(0, "Couldn't connect to server, please try again later");
+            listener.onRequestComplete(0, "Couldn't connect to server, please try again later",requestCode);
             return;
         }
 
-        listener.onRequestComplete(1, result);
+        listener.onRequestComplete(1, result,requestCode);
     }
 }

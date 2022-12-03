@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recycler_vertical_mainLayout"
+    android:layout_width="match_parent"
+    android:background="@color/dark_gray"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/recycler_comics_image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_placeholder" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="10dp"
+       android:layout_marginEnd="10dp"
+       android:gravity="center"
+       android:layout_gravity="center"
+       android:orientation="vertical">
+
+       <TextView
+           android:id="@+id/recycler_comics_title"
+           style="@style/text_14"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="@color/white"
+           android:textStyle="bold"
+           tools:text="A-Bomb (HAS)" />
+
+       <TextView
+           android:id="@+id/recycler_comics_description"
+           style="@style/text_14"
+           android:visibility="visible"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="@color/gray_light"
+           tools:text="Rick Jones has been Hulk's best bud since day one, but now he's more than a friend...he's a teammate! Transformed by a Gamma energy explosion, A-Bomb's thick, armored skin is just as strong and powerful as it is blue. And when he curls into action, he uses it like a giant bowling ball of destruction!" />
+
+   </LinearLayout>
+
+</LinearLayout>

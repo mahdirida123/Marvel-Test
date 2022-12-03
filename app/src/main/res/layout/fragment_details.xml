@@ -20,18 +20,21 @@
         android:src="@drawable/ic_arrow_back"
         app:tint="@color/white" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/imageLayout"
                 android:layout_width="match_parent"
-                android:layout_height="350dp">
+                android:layout_height="350dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
 
                 <ImageView
                     android:id="@+id/detailsImage"
@@ -49,47 +52,107 @@
                     android:background="@drawable/image_gradient" />
             </RelativeLayout>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/red"
-                android:visibility="visible" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/infoLayout"
+                android:layout_alignEnd="@id/infoLayout"
+                android:layout_marginTop="-25dp"
+                android:layout_marginEnd="25dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:backgroundTint="@color/red"
+                android:elevation="6dp"
+                android:src="@drawable/heart" />
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/infoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/imageLayout"
+                android:visibility="visible"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="-50dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="vertical"
-                android:padding="20dp">
+                app:cardBackgroundColor="@color/gray"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                app:contentPadding="20dp">
 
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/text_24"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="Star War" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/description"
-                    style="@style/text_18"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="Star War"
-                    android:textColor="@color/gray_light" />
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/text_22"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="Star War"
+                        android:textColor="@color/white" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="start|center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/ic_star"
+                            app:tint="@color/gray_light" />
+
+                        <TextView
+                            style="@style/text_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="4.5"
+                            android:textColor="@color/gray_light" />
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:elevation="20dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/red"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/description"
+                        style="@style/text_18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="Rick Jones has been Hulk's best bud since day one, but now he's more than a friend...he's a teammate! Transformed by a Gamma energy explosion, A-Bomb's thick, armored skin is just as strong and powerful as it is blue. And when he curls into action, he uses it like a giant bowling ball of destruction!"
+                        android:textColor="@color/gray_light" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/reyclcerView"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:alpha="0" />
-        </LinearLayout>
+                android:layout_below="@id/infoLayout"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/recycler_comics"
+                android:layout_marginTop="10dp"
+                android:alpha="1" />
 
-    </ScrollView>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

@@ -18,8 +18,10 @@
 
         <activity
             android:name=".activities.LauncherActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/LauncherStyle"
-            android:exported="true">
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

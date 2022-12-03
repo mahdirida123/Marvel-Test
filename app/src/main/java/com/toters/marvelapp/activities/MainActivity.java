@@ -1,5 +1,6 @@
 package com.toters.marvelapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -11,10 +12,12 @@ import com.toters.marvelapp.R;
 import com.toters.marvelapp.databinding.ActivityMainBinding;
 import com.toters.marvelapp.fragments.DetailsFragment;
 import com.toters.marvelapp.fragments.MainFragment;
+import com.toters.marvelapp.helpers.Constant;
 import com.toters.marvelapp.helpers.Helpers;
+import com.toters.marvelapp.models.Characters;
 import com.toters.marvelapp.networkRequest.SendRequest;
 
-public class MainActivity extends AppCompatActivity implements SendRequest.OnRequestComplete {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
 
@@ -24,11 +27,13 @@ public class MainActivity extends AppCompatActivity implements SendRequest.OnReq
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        if (Helpers.isLandscape(this)) {
-//            binding.back.setVisibility(View.GONE);
-//        }
         openMainFragment();
-        initVariables();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        outState.putSerializable(Characters.class.getSimpleName(), lastCharacter);
+        super.onSaveInstanceState(outState);
     }
 
     private void openMainFragment() {
@@ -36,17 +41,8 @@ public class MainActivity extends AppCompatActivity implements SendRequest.OnReq
                 .beginTransaction()
                 .setReorderingAllowed(true)
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .replace(R.id.frameLayout, new MainFragment(),MainFragment.class.getSimpleName())
+                .replace(R.id.frameLayout, new MainFragment(), MainFragment.class.getSimpleName())
                 .addToBackStack(null)
                 .commit();
-    }
-
-    private void initVariables() {
-
-    }
-
-    @Override
-    public void onRequestComplete(int status, String response) {
-
     }
 }

@@ -10,9 +10,18 @@ public class Characters implements Serializable {
     private String description;
     private String picPath;
     private String year;
-    private List<Content> contentList;
+    private String rate;
+    private List<Content> objectList;
 
     public Characters() {}
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
 
     public int getId() {
         return id;
@@ -55,11 +64,11 @@ public class Characters implements Serializable {
     }
 
     public List<Content> getContentList() {
-        return contentList;
+        return objectList;
     }
 
-    public void setContentList(List<Content> contentList) {
-        this.contentList = contentList;
+    public void setContentList(List<Content> objectList) {
+        this.objectList = objectList;
     }
 
     @Override
@@ -70,7 +79,7 @@ public class Characters implements Serializable {
                 ", description='" + description + '\'' +
                 ", picPath='" + picPath + '\'' +
                 ", year='" + year + '\'' +
-                ", contentList=" + contentList +
+                ", objectList=" + objectList +
                 '}';
     }
 }

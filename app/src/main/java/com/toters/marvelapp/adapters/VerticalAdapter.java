@@ -27,7 +27,7 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
     private MainFragment mainFragment;
 
     public VerticalAdapter(MainFragment mainFragment, List<Characters> charactersList) {
-        this.charactersList =filterList(charactersList);
+        this.charactersList = filterList(charactersList);
         this.mainFragment = mainFragment;
 
     }
@@ -56,7 +56,8 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
 
         holder.title.setText(characters.getTitle());
         holder.description.setText(characters.getDescription());
-        holder.ratingBar.setRating((float) (Math.random() * 5)+1);
+        holder.ratingBar.setRating(Float.parseFloat(characters.getRate()));
+        holder.year.setText(characters.getYear());
 
         Glide.with(mainFragment.requireActivity())
                 .load(characters.getPicPath())
@@ -65,9 +66,9 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.image);
 
-        holder.image.setTransitionName("trans1"+position);
+        holder.image.setTransitionName("trans1" + position);
 
-        holder.mainLayout.setOnClickListener(v -> mainFragment.openDetail(characters,holder.image));
+        holder.mainLayout.setOnClickListener(v -> mainFragment.openDetail(characters, holder.image));
     }
 
     @Override
@@ -79,7 +80,7 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
-        TextView title, description;
+        TextView title, description, year;
         CardView mainLayout;
         RatingBar ratingBar;
 
@@ -90,6 +91,7 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
             mainLayout = itemView.findViewById(R.id.recycler_vertical_mainLayout);
             description = itemView.findViewById(R.id.recycler_vertical_description);
             ratingBar = itemView.findViewById(R.id.recycler_vertical_rate);
+            year = itemView.findViewById(R.id.recycler_vertical_dateStart);
         }
     }
 }
