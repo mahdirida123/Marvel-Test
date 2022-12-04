@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:alpha="0"
+        app:lottie_loop="true"
         android:elevation="3dp"
         app:lottie_autoPlay="false"
         app:lottie_rawRes="@raw/marvel" />

@@ -112,7 +112,7 @@ public class Helpers {
                         comicObject.getInt("id"),
                         comicObject.getString("title"),
                         picPath);
-                if(comicObject.getString("description")!=null && !comicObject.getString("description").equalsIgnoreCase("null")) {
+                if (comicObject.getString("description") != null && !comicObject.getString("description").equalsIgnoreCase("null")) {
                     comics.setDescription(comicObject.getString("description"));
                 }
                 objectList.add(comics);

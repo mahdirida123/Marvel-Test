@@ -42,12 +42,13 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d(TAG, "onCreate: start");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: start");
         binding = FragmentDetailsBinding.inflate(getLayoutInflater());
         initVariables();
         getExtras();
@@ -56,6 +57,12 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
         getData(REQUEST_COMICS, Constant.COMICS);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: start");
     }
 
     @Override
@@ -68,7 +75,7 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
 
     private void initClickListeners() {
         binding.back.setOnClickListener(v -> {
-            Constant.lastCharacter=null;
+            Constant.lastCharacter = null;
             requireActivity().onBackPressed();
         });
     }
@@ -111,18 +118,23 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
 
                 switch (requestCode) {
                     case REQUEST_COMICS:
+                        Log.d(TAG, "onRequestComplete: comics done");
                         parseComics(response);
                         getData(REQUEST_EVENTS, Constant.EVENTS);
                         break;
                     case REQUEST_EVENTS:
+                        Log.d(TAG, "onRequestComplete: events done");
                         parseEvents(response);
                         getData(REQUEST_SERIES, Constant.SERIES);
                         break;
                     case REQUEST_SERIES:
+                        Log.d(TAG, "onRequestComplete: series done");
                         parseSeries(response);
                         getData(REQUEST_STORIES, Constant.STORIES);
                         break;
                     case REQUEST_STORIES:
+                        Log.d(TAG, "onRequestComplete: stories done");
+                        Log.d(TAG, "onRequestComplete: -----------------------------");
                         parseStories(response);
                         initRecyclerView();
                         break;

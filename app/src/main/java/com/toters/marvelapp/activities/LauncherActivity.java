@@ -1,19 +1,15 @@
 package com.toters.marvelapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.toters.marvelapp.BuildConfig;
-import com.toters.marvelapp.R;
 import com.toters.marvelapp.databinding.ActivityLauncherBinding;
-import com.toters.marvelapp.helpers.Constant;
 import com.toters.marvelapp.helpers.Helpers;
 import com.toters.marvelapp.networkRequest.SendRequest;
 
@@ -21,10 +17,8 @@ import org.json.JSONException;
 
 public class LauncherActivity extends AppCompatActivity implements SendRequest.OnRequestComplete {
 
-    private static final String TAG = "LauncherActivity";
     private ActivityLauncherBinding binding;
     private boolean canGo = true;
-    private int countTime=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

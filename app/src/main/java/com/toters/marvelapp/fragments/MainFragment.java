@@ -1,26 +1,20 @@
 package com.toters.marvelapp.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
 import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.toters.marvelapp.R;
-import com.toters.marvelapp.activities.MainActivity;
 import com.toters.marvelapp.adapters.HorizontalAdapter;
 import com.toters.marvelapp.adapters.VerticalAdapter;
 import com.toters.marvelapp.databinding.FragmentMainBinding;
@@ -29,11 +23,13 @@ import com.toters.marvelapp.helpers.DetailsTransition;
 import com.toters.marvelapp.models.Characters;
 
 public class MainFragment extends Fragment {
-
+    private static final String TAG = "MainFragment";
     private FragmentMainBinding binding;
-    private HorizontalAdapter horizontalAdapter;
-    private VerticalAdapter verticalAdapter;
-    private int lastId = 0;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -41,14 +37,17 @@ public class MainFragment extends Fragment {
         binding = FragmentMainBinding.inflate(getLayoutInflater());
 
         initHorizontalRecyclerView();
+        handleScreenOrientation();
+
+        return binding.getRoot();
+    }
+
+    private void handleScreenOrientation() {
         if (binding.verticalRecyclerView != null) {
-            //portrait
             initVerticalRecyclerView();
         } else if (Constant.lastCharacter != null) {
             openDetail(Constant.lastCharacter, null);
         }
-
-        return binding.getRoot();
     }
 
     @Override
@@ -58,18 +57,14 @@ public class MainFragment extends Fragment {
     }
 
     private void initVerticalRecyclerView() {
-        verticalAdapter = new VerticalAdapter(this, Constant.charactersList);
+        VerticalAdapter verticalAdapter = new VerticalAdapter(this, Constant.charactersList);
+        assert binding.verticalRecyclerView != null;
         binding.verticalRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.verticalRecyclerView.setAdapter(verticalAdapter);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     private void initHorizontalRecyclerView() {
-        horizontalAdapter = new HorizontalAdapter(this, Constant.charactersList);
+        HorizontalAdapter horizontalAdapter = new HorizontalAdapter(this, Constant.charactersList);
         LinearLayoutManager manager = new LinearLayoutManager(requireActivity());
         if (getResources().getBoolean(R.bool.isLandscape)) {
             manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -93,6 +88,8 @@ public class MainFragment extends Fragment {
         setExitTransition(new Fade());
 
         if (getResources().getBoolean(R.bool.isLandscape)) {
+            assert binding.noCharacterText != null;
+            binding.noCharacterText.setVisibility(View.GONE);
             detailsFragment.setArguments(bundle);
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
 

@@ -20,6 +20,7 @@ import com.toters.marvelapp.networkRequest.SendRequest;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
+    public Characters lastCharacter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,21 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        checkFragments();
         openMainFragment();
+
+    }
+
+    private void checkFragments() {
+        Fragment details = getSupportFragmentManager().findFragmentByTag(DetailsFragment.class.getSimpleName());
+        if(getResources().getBoolean(R.bool.isLandscape) && details!=null){
+            getSupportFragmentManager().beginTransaction().remove(details).commit();
+        }
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        outState.putSerializable(Characters.class.getSimpleName(), lastCharacter);
+        outState.putSerializable(Characters.class.getSimpleName(), lastCharacter);
         super.onSaveInstanceState(outState);
     }
 
