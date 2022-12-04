@@ -1,6 +1,8 @@
 package com.toters.marvelapp.models;
 
-public class Events {
+import java.io.Serializable;
+
+public class Events implements Serializable {
     private int id;
     private String title;
     private String description;

@@ -20,6 +20,7 @@ import com.toters.marvelapp.adapters.VerticalAdapter;
 import com.toters.marvelapp.databinding.FragmentMainBinding;
 import com.toters.marvelapp.helpers.Constant;
 import com.toters.marvelapp.helpers.DetailsTransition;
+import com.toters.marvelapp.helpers.Helpers;
 import com.toters.marvelapp.models.Characters;
 
 public class MainFragment extends Fragment {
@@ -87,7 +88,7 @@ public class MainFragment extends Fragment {
         detailsFragment.setEnterTransition(new Fade());
         setExitTransition(new Fade());
 
-        if (getResources().getBoolean(R.bool.isLandscape)) {
+        if (Helpers.isLandscape(requireActivity())) {
             assert binding.noCharacterText != null;
             binding.noCharacterText.setVisibility(View.GONE);
             detailsFragment.setArguments(bundle);

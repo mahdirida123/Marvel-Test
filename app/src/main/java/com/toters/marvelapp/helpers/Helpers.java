@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Parse all json data
+ */
+
 public class Helpers {
 
     private static final String TAG = "Helpers";

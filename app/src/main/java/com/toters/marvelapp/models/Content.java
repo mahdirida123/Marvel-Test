@@ -1,8 +1,9 @@
 package com.toters.marvelapp.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Content {
+public class Content implements Serializable {
     private String title;
     private List<Object> objectList;
 

@@ -35,8 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkFragments() {
         Fragment details = getSupportFragmentManager().findFragmentByTag(DetailsFragment.class.getSimpleName());
-        if(getResources().getBoolean(R.bool.isLandscape) && details!=null){
+        if (getResources().getBoolean(R.bool.isLandscape) && details != null) {
             getSupportFragmentManager().beginTransaction().remove(details).commit();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment detail = getSupportFragmentManager().findFragmentByTag(DetailsFragment.class.getSimpleName());
+        if (detail == null) {
+            finish();
+        } else {
+            super.onBackPressed();
         }
     }
 

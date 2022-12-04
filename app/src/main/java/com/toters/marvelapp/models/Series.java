@@ -1,6 +1,8 @@
 package com.toters.marvelapp.models;
 
-public class Series {
+import java.io.Serializable;
+
+public class Series implements Serializable {
     private int id;
     private String title;
     private String description;

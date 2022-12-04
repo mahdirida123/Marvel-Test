@@ -1,6 +1,8 @@
 package com.toters.marvelapp.models;
 
-public class Comics {
+import java.io.Serializable;
+
+public class Comics implements Serializable {
     private int id;
     private String title;
     private String description="No Description found";

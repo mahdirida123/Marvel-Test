@@ -1,8 +1,10 @@
 package com.toters.marvelapp.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.toters.marvelapp.R;
+import com.toters.marvelapp.activities.GalleryActivity;
 import com.toters.marvelapp.adapters.DetailsAdapter;
 import com.toters.marvelapp.databinding.FragmentDetailsBinding;
 import com.toters.marvelapp.helpers.Constant;
@@ -46,10 +49,11 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: start");
         binding = FragmentDetailsBinding.inflate(getLayoutInflater());
+
         initVariables();
         getExtras();
         fillContent();
@@ -78,6 +82,16 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
             Constant.lastCharacter = null;
             requireActivity().onBackPressed();
         });
+        binding.detailsImage.setOnClickListener(v -> openGalleryActivity());
+    }
+
+    private void openGalleryActivity() {
+        Intent intent = new Intent(requireActivity(), GalleryActivity.class);
+        String image = characters.getPicPath();
+        String title = characters.getTitle();
+        intent.putExtra("characterName", title);
+        intent.putExtra("imageUrl", image);
+        startActivity(intent);
     }
 
     private void getExtras() {
@@ -89,7 +103,7 @@ public class DetailsFragment extends Fragment implements SendRequest.OnRequestCo
         String imageTransitionName = getArguments().getString("TRANS_NAME");
         binding.detailsImage.setTransitionName(imageTransitionName);
 
-        if (getResources().getBoolean(R.bool.isLandscape)) {
+        if (Helpers.isLandscape(requireActivity())) {
             binding.back.setVisibility(View.GONE);
         }
     }
